@@ -1,0 +1,28 @@
+{
+	"extends": [
+		"eslint:recommended",
+		"plugin:@typescript-eslint/eslint-recommended",
+		"plugin:@typescript-eslint/recommended"
+	],
+	"rules": {
+		"no-console": "off",
+		"prefer-const": "off",
+		"@typescript-eslint/indent": "off",
+		"@typescript-eslint/member-delimiter-style": "off",
+		"@typescript-eslint/explicit-function-return-type": "off",
+		"@typescript-eslint/explicit-member-accessibility": "off",
+		"@typescript-eslint/no-use-before-define": "off"
+	},
+	"overrides": [
+		// Forcing prefer-const to be off because eslint extends is dumb
+		{ "files": "*", "rules": { "prefer-const": "off" } },
+		{
+			"files": "*.gen.ts",
+			"rules": {
+				"no-var": "off",
+				"no-empty": "off",
+				"@typescript-eslint/no-explicit-any": "off"
+			}
+		}
+	]
+}

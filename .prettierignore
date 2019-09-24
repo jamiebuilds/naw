@@ -1,0 +1,6 @@
+.*ignore
+.*cache
+Dockerfile
+*.sh
+*.bats
+dist

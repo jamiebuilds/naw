@@ -1,0 +1,4 @@
+{
+	"$schema": "http://json-schema.org/draft-06/schema#",
+	"$ref": "./dist/naw-config.schema.json#/definitions/Config"
+}

@@ -1,0 +1,14 @@
+{
+	"tasks": {
+		"eslint": {
+			"description": "Lint code with ESLint",
+			"build": "./tasks/eslint",
+			"args": ["."]
+		},
+		"example": {
+			"description": "Run an example build tool",
+			"build": "./tasks/example",
+			"args": []
+		}
+	}
+}

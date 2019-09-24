@@ -1,0 +1,8 @@
+{
+	"json.schemas": [
+		{
+			"fileMatch": ["naw.json"],
+			"url": "./config.schema.json"
+		}
+	]
+}

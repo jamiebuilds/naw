@@ -7,8 +7,8 @@
 	"author": "Jamie Kyle <me@thejameskyle.com>",
 	"license": "MIT",
 	"files": [
-		"./dist",
-		"./config.schema.json"
+		"dist",
+		"config.schema.json"
 	],
 	"bin": {
 		"naw": "./dist/cli.js"

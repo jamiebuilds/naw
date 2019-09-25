@@ -1,6 +1,6 @@
 {
 	"name": "naw",
-	"version": "0.0.0",
+	"version": "0.1.0",
 	"description": "Your very own containerized build system!",
 	"main": "index.js",
 	"keywords": [],

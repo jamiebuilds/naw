@@ -41,20 +41,11 @@ let cli = meow({
 	},
 })
 
-type Inputs = "<task>"
-
 interface Flags {
 	init?: boolean
 	build?: boolean
 	test?: boolean
 	debug?: boolean
-}
-
-interface Cmd {
-	requiredInput: Inputs[]
-	optionalInput: Inputs[]
-	requiredFlags: Partial<Flags>
-	optionalFlags: Partial<Flags>
 }
 
 async function main(cwd: string, input: string[], flags: Flags) {

@@ -1,5 +1,9 @@
 import spawn, { ProcessError, Mode } from "./spawn"
 import { FinalConfig, FinalTask } from "./config"
+import path from "path"
+
+let DOCKERFILES = path.resolve(__dirname, "dockerfiles")
+let TESTER_DOCKERFILE = path.join(DOCKERFILES, "tester.Dockerfile")
 
 export enum Target {
 	Builder = "builder",
@@ -14,12 +18,7 @@ export function findTask(config: FinalConfig, taskName: string): FinalTask {
 	return found
 }
 
-export async function buildTask(
-	task: FinalTask,
-	target: Target,
-	mode: Mode,
-	cwd: string,
-) {
+export async function buildTask(task: FinalTask, mode: Mode, cwd: string) {
 	await spawn(
 		"docker",
 		[
@@ -29,8 +28,30 @@ export async function buildTask(
 			...task.buildArgs.map(buildArg => {
 				return `--build-arg=${buildArg}`
 			}),
-			`--target=${target}`,
-			`--tag=${getTag(task, target)}`,
+			`--tag=${getTag(task, Target.Builder)}`,
+		],
+		{
+			interactive: false,
+			mode,
+		},
+	)
+}
+
+export async function buildTaskTester(
+	task: FinalTask,
+	mode: Mode,
+	cwd: string,
+) {
+	await buildTask(task, mode, cwd)
+	await spawn(
+		"docker",
+		[
+			"build",
+			task.buildContext,
+			`--file=${TESTER_DOCKERFILE}`,
+			`--build-arg=baseImage=${getTag(task, Target.Builder)}`,
+			`--build-arg=testFiles=${getTestFilesGlob(task)}`,
+			`--tag=${getTag(task, Target.Tester)}`,
 		],
 		{
 			interactive: false,
@@ -91,4 +112,8 @@ export async function shellTask(task: FinalTask, target: Target, cwd: string) {
 
 function getTag(task: FinalTask, target: Target) {
 	return `naw-${target}-${task.taskName}:latest`
+}
+
+function getTestFilesGlob(task: FinalTask) {
+	return path.join(task.buildContext, "*.bats")
 }

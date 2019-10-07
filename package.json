@@ -15,10 +15,11 @@
 	},
 	"scripts": {
 		"format": "prettier --write '**'",
-		"build": "rm -rf dist && mkdir dist && npm run -s build:codegen && npm run -s build:schema && npm run -s build:src",
+		"build": "rm -rf dist && mkdir dist && npm run -s build:codegen && npm run -s build:schema && npm run -s build:src && npm run -s build:dockerfiles",
 		"build:codegen": "quicktype ./src/config/types.src.ts -o ./src/config/types.gen.ts -l ts --runtime-typecheck --top-level Config --converters top-level --acronym-style original",
 		"build:schema": "quicktype ./src/config/types.src.ts -o ./dist/naw-config.schema.json -l schema",
 		"build:src": "tsc && chmod +x ./dist/cli.js",
+		"build:dockerfiles": "mkdir -p dist && cp -r ./src/dockerfiles ./dist",
 		"prepublishOnly": "npm run -s build"
 	},
 	"dependencies": {
